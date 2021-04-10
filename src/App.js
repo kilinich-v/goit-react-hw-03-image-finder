@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import SearchBar from './components/SearchBar'
+import ImageGallery from './components/ImageGallery'
 
-function App() {
+const App = () => {
+  const [query, setQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [query]);
+
+  const changeQuery = newQuery => {    
+    setQuery(newQuery);
+  }
+
+  const changePage = () => {
+    setCurrentPage(currentPage + 1);
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <SearchBar onSubmit={changeQuery} />
+      <ImageGallery query={query} page={currentPage} changePage={changePage} />
+    </>
   );
-}
+ }
 
-export default App;
+
+export default App
+
