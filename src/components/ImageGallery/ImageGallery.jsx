@@ -31,6 +31,13 @@ const ImageGallery = ({ query, page, changePage }) => {
       .finally(() => setIsLoading(false));
   }, [query, page]);
 
+  useEffect(() => {
+    if (!query) return;
+
+    setIsLoading(true);
+    setImages([]);
+  }, [query]);
+
   const onClickImage = (url, alt) => {
     setImageModal({ url, alt });
   };
